@@ -24,10 +24,12 @@ export default function SignUp() {
 
     return (
         <section className="w-full flex flex-col justify-center items-center px-10 py-5">
+            <h1>Sign Up</h1>
             <form onSubmit={handleSubmit} className="flex flex-col w-full gap-8 md:w-[500px]">
                 <input 
                     type="text" 
                     value={username} 
+                    name="username"
                     onChange={(e) => setUsername(e.target.value)} 
                     placeholder="Username" 
                     required 
@@ -35,6 +37,7 @@ export default function SignUp() {
                 <input 
                     type="email" 
                     value={email} 
+                    name="email"
                     onChange={(e) => setEmail(e.target.value)} 
                     placeholder="Email" 
                     required 
@@ -42,6 +45,7 @@ export default function SignUp() {
                 <input 
                     type="password" 
                     value={password} 
+                    name="password"
                     onChange={(e) => setPassword(e.target.value)} 
                     placeholder="Password" 
                     required 
