@@ -1,0 +1,80 @@
+"use client";
+
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useSession, signOut } from "next-auth/react";
+
+export default function Navbar() {
+    const [menuOpen, setMenuOpen] = useState(false);
+    const { data: session, status } = useSession();
+    const [mounted, setMounted] = useState(false);
+
+    // Ensure component is mounted before accessing session to prevent hydration errors
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // Toggle menu state
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+        document.body.style.overflow = menuOpen ? "auto" : "hidden";
+    };
+
+    return (
+        <nav className="flex w-full justify-between items-center pr-6">
+            {/* Logo */}
+            <img src="/greek-emperor.png" width={75} height={75} alt="Logo" />
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex gap-6 text-lg font-bold items-center">
+                <Link href="/">Home</Link>
+                <Link href="/workout">Workout</Link>
+                {mounted && status !== "loading" && (
+                    session ? (
+                        <button onClick={() => signOut()}>Sign Out</button>
+                    ) : (
+                        <Link href="/auth/signin">Sign In</Link>
+                    )
+                )}
+            </div>
+
+            {/* Mobile Menu Toggle */}
+            <div className="md:hidden z-50" onClick={toggleMenu}>
+                {menuOpen ? (
+                    // Close Icon
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" className="w-8 h-8 text-white fill-current absolute top-6 right-6 z-50">
+                        <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+                    </svg>
+                ) : (
+                    // Menu Icon
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="w-8 h-8 text-white fill-current">
+                        <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+                    </svg>
+                )}
+            </div>
+
+            {/* Mobile Menu Overlay */}
+            {menuOpen && (
+                <div className="fixed top-0 right-0 w-full h-screen bg-black flex flex-col items-center justify-center gap-8 text-white font-bold text-2xl z-40">
+                    <Link href="/" onClick={toggleMenu}>Home</Link>
+                    <Link href="/workout" onClick={toggleMenu}>Log Workout</Link>
+
+                    {mounted && status !== "loading" && (
+                        session ? (
+                            <button
+                                onClick={() => {
+                                    signOut();
+                                    toggleMenu();
+                                }}
+                            >
+                                Sign Out
+                            </button>
+                        ) : (
+                            <Link href="/auth/signin" onClick={toggleMenu}>Sign In</Link>
+                        )
+                    )}
+                </div>
+            )}
+        </nav>
+    );
+}

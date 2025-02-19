@@ -14,8 +14,8 @@ export default function SignIn() {
     };
 
     return (
-        <section>
-            <form onSubmit={handleSubmit}>
+        <section className="w-full flex flex-col justify-center items-center px-10 py-5">
+            <form onSubmit={handleSubmit} className="flex flex-col w-full gap-8 md:w-[500px]">
                 <input 
                     type="email" 
                     value={email} 

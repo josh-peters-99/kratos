@@ -1,6 +1,7 @@
 import "./globals.css";
 import { AuthProvider } from "./provider";
 import { Roboto } from "next/font/google";
+import Navbar from "@/components/layout/Navbar";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700"],
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
         className={`${roboto.className}`}
       >
         <AuthProvider>
+          <Navbar />
           <main>{children}</main>
         </AuthProvider>
       </body>
