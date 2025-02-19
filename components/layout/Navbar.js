@@ -23,7 +23,12 @@ export default function Navbar() {
     return (
         <nav className="flex w-full justify-between items-center pr-6">
             {/* Logo */}
-            <img src="/greek-emperor.png" width={75} height={75} alt="Logo" />
+            <Link href="/" className="flex items-center cursor-pointer">
+                <div className="flex items-center">
+                    <img src="/greek-emperor.png" width={75} height={75} alt="Logo" />
+                    <h1>KRATOS</h1>
+                </div>
+            </Link>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex gap-6 text-lg font-bold items-center">
