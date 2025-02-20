@@ -23,8 +23,13 @@ npm run dev
 4. Open the application:
 Visit `http://localhost:3000` in your browser
 5. (Optional) Run Cypress Tests:
+- Run all tests:
 ```bash
 npx cypress run
+```
+- Run one test:
+```bash
+npx cypress run --spec cypress/e2e/<filename>.js
 ```
 
 ## Project Setup
