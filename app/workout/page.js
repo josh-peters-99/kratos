@@ -1,9 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { fetchWorkouts, createWorkout, updateWorkout, deleteWorkout } from "@/lib/api/workouts";
 
 export default function Workout() {
+    const router = useRouter();
     const [title, setTitle] = useState("");
     const [maxDate, setMaxDate] = useState("");
     const [workoutDate, setWorkoutDate] = useState("");
@@ -69,12 +71,20 @@ export default function Workout() {
     async function handleSubmit(event) {
         event.preventDefault();
         sessionStorage.removeItem("tempWorkoutId");
-        alert("Workout saved!");
+        router.push("/");
     }
 
     return (
-        <section className="px-10">
-            <form className="flex flex-col gap-5">
+        <section className="px-10 mt-8">
+            <div className="flex w-full justify-between items-center">
+                <h1 className="font-bold text-3xl">New Workout</h1>
+                <div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="h-8 w-8 fill-current text-white">
+                    <path d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"/>
+                </svg>
+                </div>
+            </div>
+            <form className="flex flex-col gap-5 mt-5" onSubmit={handleSubmit}>
                 <div>
                     <label>Workout Title</label>
                     <input 
@@ -107,7 +117,7 @@ export default function Workout() {
                 </div>
 
                 <button type="submit">
-                    Save Workout
+                    Finish Workout
                 </button>
             </form>
         </section>
