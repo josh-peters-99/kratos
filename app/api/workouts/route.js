@@ -12,8 +12,8 @@ export async function POST(req) {
 
   try {
       await connectDB();
-      const { title, notes } = await req.json();
-      const newWorkout = new Workout({ user: session.user.id, title, notes });
+      const { title, date, notes } = await req.json();
+      const newWorkout = new Workout({ user: session.user.id, title, date, notes });
       await newWorkout.save();
 
       return NextResponse.json(newWorkout, { status: 201 });

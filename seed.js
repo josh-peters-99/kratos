@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import User from "./models/User.js";
 import Workout from "./models/Workout.js";
+import bcrypt from "bcryptjs";
 
 const seedData = async () => {
     try {
@@ -14,10 +15,11 @@ const seedData = async () => {
         // Sample data
         const user1 = await User.findOne({ email: 'john@example.com' });
         if (!user1) {
+            const hashedPassword1 = await bcrypt.hash('hashedPassword1', 10);
             await User.create({
                 username: 'JohnDoe',
                 email: 'john@example.com',
-                password: 'hashedPassword1',
+                password: hashedPassword1,
             });
             console.log('Created John Doe');
         } else {
@@ -26,10 +28,11 @@ const seedData = async () => {
 
         const user2 = await User.findOne({ email: 'jane@example.com' });
         if (!user2) {
+            const hashedPassword2 = await bcrypt.hash('hashedPassword2', 10);
             await User.create({
                 username: 'JaneSmith',
                 email: 'jane@example.com',
-                password: 'hashedPassword2',
+                password: hashedPassword2,
             });
             console.log('Created Jane Smith');
         } else {

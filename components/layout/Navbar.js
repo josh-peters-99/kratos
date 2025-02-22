@@ -21,11 +21,11 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="flex w-full justify-between items-center pr-6">
+        <nav className="flex w-full justify-between items-center px-6 h-[80px]">
             {/* Logo */}
             <Link href="/" className="flex items-center cursor-pointer">
                 <div className="flex items-center">
-                    <img src="/greek-emperor.png" width={75} height={75} alt="Logo" />
+                    {/* <img src="/greek-emperor.png" width={75} height={75} alt="Logo" /> */}
                     <h1>KRATOS</h1>
                 </div>
             </Link>

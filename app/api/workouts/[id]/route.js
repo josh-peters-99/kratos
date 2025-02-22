@@ -12,7 +12,7 @@ export async function PUT(req, { params }) {
   
   try {
     await connectDB();
-    const { id } = params;
+    const { id } = await params;
     const updatedWorkout = await Workout.findByIdAndUpdate(id, await req.json(), { new: true });
     return NextResponse.json(updatedWorkout, { status: 200 });
   } catch (error) {
