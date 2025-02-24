@@ -20,7 +20,9 @@ export async function PUT(req, { params }) {
   }
 }
 
-export async function DELETE(req) {
+export async function DELETE(req, { params }) {
+  const { id } = await params;
+
   const session = await getServerSession(authOptions);
   if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -28,14 +30,21 @@ export async function DELETE(req) {
 
   try {
       await connectDB();
-      const { id } = await req.json();
-      const workout = await Workout.findById(id);
 
-      if (!workout || workout.user.toString() !== session.user.id) {
+      const workout = await Workout.findById(id);
+      if (!workout) {
+        return NextResponse.json({ error: "Workout not found" }, { status: 404 });
+      }
+
+      if (workout.user.toString() !== session.user.id) {
           return NextResponse.json({ error: "Not authorized to delete this workout" }, { status: 403 });
       }
 
-      await Workout.findByIdAndDelete(id);
+      const result = await Workout.findByIdAndDelete(id);
+      if (!result) {
+        return NextResponse.json({ error: "Failed to delete workout" }, { status: 500 });
+      }
+
       return NextResponse.json({ message: "Workout deleted" }, { status: 200 });
   } catch (error) {
       return NextResponse.json({ error: "Failed to delete workout" }, { status: 500 });
