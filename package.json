@@ -12,6 +12,8 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
     "bcryptjs": "^3.0.2",
     "dotenv": "^16.4.7",
     "jsonwebtoken": "^9.0.2",
