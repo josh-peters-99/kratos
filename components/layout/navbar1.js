@@ -65,7 +65,7 @@ const Navbar1 = ({
           title: "New Workout",
           description: "The latest industry news, updates, and info",
           icon: <BadgePlus className="size-5 shrink-0" />,
-          url: "#",
+          url: "/workout/new-workout",
         },
         {
           title: "Templates",
@@ -73,19 +73,19 @@ const Navbar1 = ({
           icon: <LayoutTemplate className="size-5 shrink-0" />,
           url: "#",
         },
-        {
-          title: "Feed",
-          description: "Browse job listing and discover our workspace",
-          icon: <Rows3 className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Statisics",
-          description:
-            "Get in touch with our support team or visit our community forums",
-          icon: <ChartNoAxesCombined className="size-5 shrink-0" />,
-          url: "#",
-        },
+        // {
+        //   title: "Feed",
+        //   description: "Browse job listing and discover our workspace",
+        //   icon: <Rows3 className="size-5 shrink-0" />,
+        //   url: "#",
+        // },
+        // {
+        //   title: "Statisics",
+        //   description:
+        //     "Get in touch with our support team or visit our community forums",
+        //   icon: <ChartNoAxesCombined className="size-5 shrink-0" />,
+        //   url: "/workout/stats",
+        // },
       ],
     },
     {
@@ -169,7 +169,7 @@ const Navbar1 = ({
               <DropdownMenuTrigger className="focus:outline-none cursor-pointer">
                 <CircleUserRound />
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuContent className="mr-8">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Profile</DropdownMenuItem>
