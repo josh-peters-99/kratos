@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Separator } from "../ui/separator";
 
 export default function WorkoutForm() {
   const [formState, setFormState] = useState(() => {
@@ -96,7 +97,10 @@ export default function WorkoutForm() {
           <div className="flex flex-col gap-3">
             <div>
               <Label htmlFor="workoutTitle">Workout Title</Label>
-              <WorkoutTitleInput setTitle={(title) => updateField("title", title)} title={formState.title} />
+              <WorkoutTitleInput 
+                setTitle={(title) => updateField("title", title)} 
+                title={formState.title} 
+              />
             </div>
             <div className="flex justify-between">
               <DatePicker date={formState.date} setDate={(e) => updateField("date", e)} />
@@ -104,54 +108,71 @@ export default function WorkoutForm() {
             </div>
           </div>
         </div>
-        <div className="mt-8">
+
+        <Separator className="my-8" />
+
+        <div>
           {formState.exercises.map((exercise, index) => (
-            <div key={index} className="mb-4 flex items-center">
-              <div className="mr-3">
-                <Label htmlFor={`exerciseName-${index}`}>Exercise Name</Label>
-                <ExerciseNameInput
-                  value={exercise.name}
-                  onSetType={(type) => updateExercise(index, "exerciseType", type)}
-                  onNameChange={(name) => updateExercise(index, "name", name)}
-                />
-              </div>
-              <div>
-                <Label>Exercise Type</Label>
-                <div className="flex justify-between">
-                  <Select>
-                    <SelectTrigger className="w-[115px] md:w-[150px]">
-                      <SelectValue placeholder="Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="weighted">Weighted Lift</SelectItem>
-                      <SelectItem value="bodyweight">Bodyweight</SelectItem>
-                      <SelectItem value="timed">Timed</SelectItem>
-                      <SelectItem value="cardio">Cardio</SelectItem>
-                    </SelectContent>
-                  </Select>
+            <div>
+              <div key={index} className="mb-4 flex justify-between">
+                <div className="mr-3">
+                  <Label htmlFor={`exerciseName-${index}`}>Exercise Name</Label>
+                  <ExerciseNameInput
+                    value={exercise.name}
+                    onSetType={(type) => updateExercise(index, "exerciseType", type)}
+                    onNameChange={(name) => updateExercise(index, "name", name)}
+                  />
+                </div>
+                <div>
+                  <Label>Exercise Type</Label>
+                  <div className="flex justify-between mt-1">
+                    <Select>
+                      <SelectTrigger className="w-[115px] md:w-[150px]">
+                        <SelectValue placeholder="Type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="weighted">Weighted Lift</SelectItem>
+                        <SelectItem value="bodyweight">Bodyweight</SelectItem>
+                        <SelectItem value="timed">Timed</SelectItem>
+                        <SelectItem value="cardio">Cardio</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="ml-3 mt-1">
+                  <Label className="invisible">Delete</Label>
+                  <Button onClick={() => deleteExercise(index)}>
+                    <Trash2 />
+                  </Button>
                 </div>
               </div>
 
-              <div className="ml-3">
-                <Label className="invisible">Delete</Label>
-                <Button onClick={() => deleteExercise(index)}>
-                  <Trash2 />
+              <div className="flex flex-col items-center justify-center mb-8 mt-6">
+                <Button>
+                  <Plus />
                 </Button>
+                <p className="text-xs text-muted-foreground italic mt-1">(add set)</p>
               </div>
-
+              <Separator className="mb-8"/>
             </div>
           ))}
         </div>
       </form>
+
       <div className="flex w-full justify-center mt-8">
         <Button onClick={addExercise}>
           <Plus />
-          Add Exercise
+          Exercise
         </Button>
       </div>
       <div className="mt-8">
         <Label>Workout Notes</Label>
-        <Textarea value={formState.notes} onChange={(e) => updateField("notes", e.target.value)} />
+        <Textarea 
+          className="mt-1" 
+          value={formState.notes} 
+          onChange={(e) => updateField("notes", e.target.value)} 
+        />
       </div>
       <div className="flex w-full justify-evenly mt-10">
         <Button>

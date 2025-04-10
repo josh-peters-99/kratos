@@ -22,7 +22,7 @@ export async function GET(req) {
 
     // Search exercises by name (case insensitive, user-specific)
     const exercises = await Exercise.find({
-      userId: session.user.id,
+      // userId: session.user.id,
       name: { $regex: new RegExp(query, "i") }
     }).select("name exerciseType").limit(10);
 

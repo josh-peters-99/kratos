@@ -53,7 +53,7 @@ function ExerciseNameInput({ value, onSetType, onNameChange }) {
   }
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative mt-1">
       <div className="flex">
         <div>
           <Input
@@ -75,7 +75,7 @@ function ExerciseNameInput({ value, onSetType, onNameChange }) {
       </div>
 
       {isTyping && showSuggestions && (
-        <Command className="absolute z-10">
+        <Command className="absolute z-10 w-auto h-auto">
           <CommandList>
             {suggestions.length > 0 ? (
               <CommandGroup heading="Suggestions">
@@ -95,7 +95,6 @@ function ExerciseNameInput({ value, onSetType, onNameChange }) {
           </CommandList>
         </Command>
       )}
-
     </div>
   )
 }

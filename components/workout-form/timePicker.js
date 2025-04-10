@@ -13,7 +13,7 @@ export function TimePicker({ time, setTime }) {
       <Label htmlFor="time-picker">
         Pick a time:
       </Label>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 mt-1">
         <Input
           id="time-picker"
           type="time"

@@ -40,10 +40,11 @@ function WorkoutTitleInput({ onAutofill, setTitle, title }) {
   const handleBlur = () => setTimeout(() => setShowSuggestions(false), 200);
 
   return (
-    <div>
+    <div className="mt-1">
       <Input 
         type={"text"}
         id="workoutTitle"
+        autoComplete="off"
         value={input}
         onChange={(e) => {
           setInput(e.target.value);
