@@ -113,8 +113,8 @@ export default function WorkoutForm() {
 
         <div>
           {formState.exercises.map((exercise, index) => (
-            <div>
-              <div key={index} className="mb-4 flex justify-between">
+            <div key={index}>
+              <div className="mb-4 flex justify-between">
                 <div className="mr-3">
                   <Label htmlFor={`exerciseName-${index}`}>Exercise Name</Label>
                   <ExerciseNameInput
