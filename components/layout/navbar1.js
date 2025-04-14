@@ -13,6 +13,10 @@ import {
   ChartNoAxesCombined,
   CircleUserRound,
   LogOut,
+  Library,
+  CalendarDays,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -45,7 +49,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
+import { useTheme } from "next-themes";
 
 
 const Navbar1 = ({
@@ -63,29 +68,16 @@ const Navbar1 = ({
       items: [
         {
           title: "New Workout",
-          description: "The latest industry news, updates, and info",
+          description: "Create a new custom workout.",
           icon: <BadgePlus className="size-5 shrink-0" />,
           url: "/workout/new-workout",
         },
         {
-          title: "Templates",
-          description: "Our mission is to innovate and empower the world",
-          icon: <LayoutTemplate className="size-5 shrink-0" />,
+          title: "Exercise Library",
+          description: "View our extensive archive of exercises.",
+          icon: <Library className="size-5 shrink-0" />,
           url: "#",
         },
-        // {
-        //   title: "Feed",
-        //   description: "Browse job listing and discover our workspace",
-        //   icon: <Rows3 className="size-5 shrink-0" />,
-        //   url: "#",
-        // },
-        // {
-        //   title: "Statisics",
-        //   description:
-        //     "Get in touch with our support team or visit our community forums",
-        //   icon: <ChartNoAxesCombined className="size-5 shrink-0" />,
-        //   url: "/workout/stats",
-        // },
       ],
     },
     {
@@ -93,27 +85,15 @@ const Navbar1 = ({
       url: "#",
       items: [
         {
-          title: "Help Center",
-          description: "Get all the answers you need right here",
-          icon: <Zap className="size-5 shrink-0" />,
+          title: "Past Workouts",
+          description: "View a your past workouts.",
+          icon: <CalendarDays className="size-5 shrink-0" />,
           url: "#",
         },
         {
-          title: "Contact Us",
-          description: "We are here to help you with any questions you have",
-          icon: <Sunset className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Status",
-          description: "Check the current status of our services and APIs",
-          icon: <Trees className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Terms of Service",
-          description: "Our terms and conditions for using our services",
-          icon: <Book className="size-5 shrink-0" />,
+          title: "Plan Ahead",
+          description: "Prepare for the upcoming week by planning your workouts.",
+          icon: <NotebookPen className="size-5 shrink-0" />,
           url: "#",
         },
       ],
@@ -135,6 +115,7 @@ const Navbar1 = ({
 }) => {
   const { data: session } = useSession();
   const router = useRouter();
+  const { setTheme } = useTheme();
 
   const handleAuthClick = () => {
     if (session) {
@@ -201,6 +182,27 @@ const Navbar1 = ({
                 <a href={auth.signup.url}>{auth.signup.title}</a>
               </Button>
             )}
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="cursor-pointer">
+                      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                      <span className="sr-only">Toggle theme</span>
+                  </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointer">
+                  Light
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer">
+                  Dark
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer">
+                  System
+                  </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </nav>
 
@@ -210,48 +212,71 @@ const Navbar1 = ({
             <a href={logo.url} className="flex items-center gap-2">
               <img src={logo.src} className="max-h-8" alt={logo.alt} />
             </a>
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Menu className="size-4" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent className="overflow-y-auto">
-                <SheetHeader>
-                  <SheetTitle>
-                    <a href={logo.url} className="flex items-center gap-2">
-                      <img src={logo.src} className="max-h-8" alt={logo.alt} />
-                    </a>
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col gap-6 p-4">
-                  <Accordion
-                    type="single"
-                    collapsible
-                    className="flex w-full flex-col gap-4"
-                  >
-                    {menu.map((item) => renderMobileMenuItem(item))}
-                  </Accordion>
-
-                  <div className="flex flex-col gap-3">
-                    {/* <Button asChild variant="outline">
-                      <a href={auth.login.url}>{auth.login.title}</a>
-                    </Button> */}
-                    <Button
-                      variant="outline"
-                      onClick={handleAuthClick}
-                    >
-                      {session ? "Logout" : "Login"}
+            <div className="flex gap-3">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="cursor-pointer">
+                        <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                        <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                        <span className="sr-only">Toggle theme</span>
                     </Button>
-                    {!session && (
-                      <Button asChild>
-                        <a href={auth.signup.url}>{auth.signup.title}</a>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointer">
+                    Light
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer">
+                    Dark
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer">
+                    System
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="icon">
+                    <Menu className="size-4" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent className="overflow-y-auto">
+                  <SheetHeader>
+                    <SheetTitle>
+                      <a href={logo.url} className="flex items-center gap-2">
+                        <img src={logo.src} className="max-h-8" alt={logo.alt} />
+                      </a>
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div className="flex flex-col gap-6 p-4">
+                    <Accordion
+                      type="single"
+                      collapsible
+                      className="flex w-full flex-col gap-4"
+                    >
+                      {menu.map((item) => renderMobileMenuItem(item))}
+                    </Accordion>
+
+                    <div className="flex flex-col gap-3">
+                      {/* <Button asChild variant="outline">
+                        <a href={auth.login.url}>{auth.login.title}</a>
+                      </Button> */}
+                      <Button
+                        variant="outline"
+                        onClick={handleAuthClick}
+                      >
+                        {session ? "Logout" : "Login"}
                       </Button>
-                    )}
+                      {!session && (
+                        <Button asChild>
+                          <a href={auth.signup.url}>{auth.signup.title}</a>
+                        </Button>
+                      )}
+                    </div>
+
                   </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </div>

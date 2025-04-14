@@ -15,7 +15,7 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 
-function ExerciseNameInput({ value, onSetType, onNameChange }) {
+function ExerciseNameInput({ value, onSelectExercise }) {
   const [name, setName] = useState(value || "");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -39,8 +39,7 @@ function ExerciseNameInput({ value, onSetType, onNameChange }) {
 
   const handleSelect = (exercise) => {
     setName(exercise.name);
-    onSetType(exercise.exerciseType);
-    onNameChange(exercise.name);
+    onSelectExercise(exercise);
     setIsTyping(false) // stop dropdown from reappearing
     setShowSuggestions(false);
   };
@@ -55,7 +54,7 @@ function ExerciseNameInput({ value, onSetType, onNameChange }) {
   return (
     <div className="w-full relative mt-1">
       <div className="flex">
-        <div>
+        <div className="w-full">
           <Input
             type={"text"}
             id="exerciseName"
@@ -64,12 +63,11 @@ function ExerciseNameInput({ value, onSetType, onNameChange }) {
             onChange={(e) => {
               const newValue = e.target.value;
               setName(newValue);
-              onNameChange(newValue);
               setIsTyping(true);
             }}
             onBlur={handleBlur}
             placeholder="Exercise Name"
-            className="mr-5"
+            className=""
           />
         </div>
       </div>

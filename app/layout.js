@@ -32,11 +32,7 @@ export default function RootLayout({ children }) {
           disableTransitionOnChange
         >
           <AuthProvider>
-            {/* <Navbar /> */}
             <LayoutWrapper>{children}</LayoutWrapper>
-            {/* <Navbar1 />
-            <main>{children}</main>
-            <Footer7 /> */}
           </AuthProvider>
         </ThemeProvider>
       </body>

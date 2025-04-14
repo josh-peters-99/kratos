@@ -13,10 +13,10 @@ export default function LayoutWrapper({ children }) {
     const shouldHideLayout = hideLayoutPaths.includes(pathname);
 
     return (
-        <>
+        <div className="flex flex-col min-h-screen">
             {!shouldHideLayout && <Navbar1 />}
-            <main>{children}</main>
+            <main className="flex-1">{children}</main>
             {!shouldHideLayout && <Footer7 />}
-        </>
+        </div>
     )
 }
