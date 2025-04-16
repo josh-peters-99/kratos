@@ -11,17 +11,11 @@ import {
   Plus, 
   ClipboardX, 
   Save, 
-  Ellipsis, 
-  ChevronDown, 
-  ChevronUp, 
-  Weight, 
-  PersonStanding, 
-  Timer, 
-  HeartPulse,
 } from "lucide-react";
 import { Separator } from "../ui/separator";
 import ExerciseCard from "./exerciseCard";
 import { createWorkout } from "@/lib/api/workout";
+import { useRouter } from "next/navigation";
 
 export default function WorkoutForm() {
   const [formState, setFormState] = useState(() => {
@@ -43,8 +37,7 @@ export default function WorkoutForm() {
       exercises: []
     };
   });
-  const [setsIsOpen, setSetsIsOpen] = useState(false);
-
+  const router = useRouter();
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
@@ -76,19 +69,19 @@ export default function WorkoutForm() {
     setFormState(prev => ({ ...prev, exercises: updatedExercises }));
   };
 
-  const saveWorkout = async () => {
-    try {
-      const res = await axios.post("/api/workouts/create", formState);
-      if (res.status === 200) {
-        localStorage.removeItem("workoutForm");
-        alert("Workout saved!");
-        // TODO: reset form here
-      }
-    } catch (error) {
-      console.error("Failed to save workout:", error);
-      alert("Something went wrong.");
-    }
-  }
+  // const saveWorkout = async () => {
+  //   try {
+  //     const res = await axios.post("/api/workouts/create", formState);
+  //     if (res.status === 200) {
+  //       localStorage.removeItem("workoutForm");
+  //       alert("Workout saved!");
+  //       // TODO: reset form here
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to save workout:", error);
+  //     alert("Something went wrong.");
+  //   }
+  // }
 
   const saveWorkoutToDatabase = async () => {
     try {
@@ -104,6 +97,7 @@ export default function WorkoutForm() {
       console.log("Workout saved:", savedWorkout);
       
       localStorage.removeItem("workoutForm");
+      router.push("/")
     } catch (error) {
       console.error("Error saving workout:", error);
     }
@@ -111,6 +105,7 @@ export default function WorkoutForm() {
 
   const discardWorkout = async () => {
     localStorage.removeItem("workoutForm");
+    router.push("/");
   }
   
 

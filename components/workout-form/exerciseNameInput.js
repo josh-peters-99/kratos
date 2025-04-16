@@ -67,7 +67,6 @@ function ExerciseNameInput({ value, onSelectExercise }) {
             }}
             onBlur={handleBlur}
             placeholder="Exercise Name"
-            className=""
           />
         </div>
       </div>

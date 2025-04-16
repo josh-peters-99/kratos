@@ -17,6 +17,7 @@ import {
   CalendarDays,
   Moon,
   Sun,
+  GalleryVerticalEnd
 } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -73,39 +74,47 @@ const Navbar1 = ({
           url: "/workout/new-workout",
         },
         {
-          title: "Exercise Library",
-          description: "View our extensive archive of exercises.",
-          icon: <Library className="size-5 shrink-0" />,
-          url: "#",
+          title: "Workout History",
+          description: "View your past workouts.",
+          icon: <GalleryVerticalEnd className="size-5 shrink-0" />,
+          url: "/workout/history",
         },
       ],
     },
     {
-      title: "Calendar",
-      url: "#",
-      items: [
-        {
-          title: "Past Workouts",
-          description: "View a your past workouts.",
-          icon: <CalendarDays className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Plan Ahead",
-          description: "Prepare for the upcoming week by planning your workouts.",
-          icon: <NotebookPen className="size-5 shrink-0" />,
-          url: "#",
-        },
-      ],
+      title: "Exercise Library",
+      url: "/exercise-library"
     },
     {
-      title: "Pricing",
-      url: "#",
-    },
-    {
-      title: "Blog",
-      url: "#",
-    },
+      title: "About",
+      url: "/about"
+    }
+    // {
+    //   title: "Calendar",
+    //   url: "#",
+    //   items: [
+    //     {
+    //       title: "Past Workouts",
+    //       description: "View a your past workouts.",
+    //       icon: <CalendarDays className="size-5 shrink-0" />,
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Plan Ahead",
+    //       description: "Prepare for the upcoming week by planning your workouts.",
+    //       icon: <NotebookPen className="size-5 shrink-0" />,
+    //       url: "#",
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: "Pricing",
+    //   url: "#",
+    // },
+    // {
+    //   title: "Blog",
+    //   url: "#",
+    // },
   ],
   auth = {
     login: { title: "Login", url: "#" },
@@ -154,8 +163,8 @@ const Navbar1 = ({
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+                {/* <DropdownMenuItem>Billing</DropdownMenuItem>
+                <DropdownMenuItem>Subscription</DropdownMenuItem> */}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="p-0">
                   <Button
