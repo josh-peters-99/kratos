@@ -69,20 +69,6 @@ export default function WorkoutForm() {
     setFormState(prev => ({ ...prev, exercises: updatedExercises }));
   };
 
-  // const saveWorkout = async () => {
-  //   try {
-  //     const res = await axios.post("/api/workouts/create", formState);
-  //     if (res.status === 200) {
-  //       localStorage.removeItem("workoutForm");
-  //       alert("Workout saved!");
-  //       // TODO: reset form here
-  //     }
-  //   } catch (error) {
-  //     console.error("Failed to save workout:", error);
-  //     alert("Something went wrong.");
-  //   }
-  // }
-
   const saveWorkoutToDatabase = async () => {
     try {
       const workoutJSON = localStorage.getItem("workoutForm");

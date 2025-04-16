@@ -170,6 +170,7 @@ const Navbar1 = ({
                   <Button
                     variant="ghost"
                     className="px-2 py-1.5 text-sm"
+                    onClick={handleAuthClick}
                   >
                     <LogOut />
                     {session ? "Logout" : "Login"}
@@ -177,15 +178,6 @@ const Navbar1 = ({
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            {/* <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
-            </Button> */}
-            {/* <Button
-              variant="outline"
-              onClick={handleAuthClick}
-            >
-              {session ? "Logout" : "Login"}
-            </Button> */}
             {!session && (
               <Button asChild size="sm">
                 <a href={auth.signup.url}>{auth.signup.title}</a>
@@ -365,3 +357,12 @@ const SubMenuLink = ({ item }) => {
 
 export { Navbar1 };
 
+            {/* <Button asChild variant="outline" size="sm">
+              <a href={auth.login.url}>{auth.login.title}</a>
+            </Button> */}
+            {/* <Button
+              variant="outline"
+              onClick={handleAuthClick}
+            >
+              {session ? "Logout" : "Login"}
+            </Button> */}
