@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { fetchWorkouts } from "@/lib/api/workout";
 import { format } from "date-fns";
+import WorkoutSummaryCard from "@/components/workout-history/workoutSummaryCard";
 
 export default function WorkoutHistory() {
   const [workouts, setWorkouts] = useState(null);
@@ -27,7 +28,7 @@ export default function WorkoutHistory() {
 
   return (
     <div>
-
+      <WorkoutSummaryCard />
     </div>
   )
 }
