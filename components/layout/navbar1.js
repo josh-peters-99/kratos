@@ -59,7 +59,7 @@ const Navbar1 = ({
     url: "https://www.shadcnblocks.com",
     src: "https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg",
     alt: "logo",
-    title: "Kratos.com",
+    title: "Kratos",
   },
   menu = [
     { title: "Home", url: "/" },
