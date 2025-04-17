@@ -85,10 +85,10 @@ const Navbar1 = ({
       title: "Exercise Library",
       url: "/exercise-library"
     },
-    {
-      title: "About",
-      url: "/about"
-    }
+    // {
+    //   title: "About",
+    //   url: "/about"
+    // }
     // {
     //   title: "Calendar",
     //   url: "#",
