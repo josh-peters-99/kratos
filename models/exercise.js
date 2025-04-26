@@ -11,11 +11,14 @@ const ExerciseSchema = new mongoose.Schema({
     type: [String],
     default: []
   },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    default: null
+  },
   createdAt:   { type: Date, default: Date.now }
 });
 
 const Exercise = mongoose.models.Exercise || mongoose.model("Exercise", ExerciseSchema);
 
 export default Exercise;
-
-  // userId:      { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },

@@ -1,23 +1,14 @@
 "use client"
 
 import { 
-  Book, 
   Menu, 
-  Sunset, 
-  Trees, 
-  Zap, 
-  LayoutTemplate, 
-  BadgePlus, 
-  NotebookPen,
-  Rows3,
-  ChartNoAxesCombined,
   CircleUserRound,
   LogOut,
-  Library,
-  CalendarDays,
   Moon,
   Sun,
-  GalleryVerticalEnd
+  House,
+  Library,
+  BadgePlus
 } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -52,69 +43,31 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "next-themes";
-
+import Link from "next/link";
 
 const Navbar1 = ({
   logo = {
-    url: "https://www.shadcnblocks.com",
+    url: "/",
     src: "https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg",
     alt: "logo",
     title: "Kratos",
   },
   menu = [
-    { title: "Home", url: "/" },
+    { 
+      title: "Home", 
+      icon: <House size={14} />,
+      url: "/" 
+    },
     {
-      title: "Workout",
-      url: "#",
-      items: [
-        {
-          title: "New Workout",
-          description: "Create a new custom workout.",
-          icon: <BadgePlus className="size-5 shrink-0" />,
-          url: "/workout/new-workout",
-        },
-        {
-          title: "Workout History",
-          description: "View your past workouts.",
-          icon: <GalleryVerticalEnd className="size-5 shrink-0" />,
-          url: "/workout/history",
-        },
-      ],
+      title: "New Workout",
+      icon: <BadgePlus size={14} />,
+      url: "/workout/new-workout"
     },
     {
       title: "Exercise Library",
+      icon: <Library size={14} />,
       url: "/exercise-library"
     },
-    // {
-    //   title: "About",
-    //   url: "/about"
-    // }
-    // {
-    //   title: "Calendar",
-    //   url: "#",
-    //   items: [
-    //     {
-    //       title: "Past Workouts",
-    //       description: "View a your past workouts.",
-    //       icon: <CalendarDays className="size-5 shrink-0" />,
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Plan Ahead",
-    //       description: "Prepare for the upcoming week by planning your workouts.",
-    //       icon: <NotebookPen className="size-5 shrink-0" />,
-    //       url: "#",
-    //     },
-    //   ],
-    // },
-    // {
-    //   title: "Pricing",
-    //   url: "#",
-    // },
-    // {
-    //   title: "Blog",
-    //   url: "#",
-    // },
   ],
   auth = {
     login: { title: "Login", url: "#" },
@@ -162,9 +115,11 @@ const Navbar1 = ({
               <DropdownMenuContent className="mr-8">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                {/* <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem> */}
+                <DropdownMenuItem>
+                  <Link href="/profile" className="w-full">
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="p-0">
                   <Button
@@ -281,6 +236,7 @@ const Navbar1 = ({
           </div>
         </div>
       </div>
+
     </section>
   );
 };
@@ -318,6 +274,7 @@ const renderMobileMenuItem = (item) => {
     return (
       <AccordionItem key={item.title} value={item.title} className="border-b-0">
         <AccordionTrigger className="text-md py-0 font-semibold hover:no-underline">
+          {item.icon}
           {item.title}
         </AccordionTrigger>
         <AccordionContent className="mt-2">
@@ -330,7 +287,8 @@ const renderMobileMenuItem = (item) => {
   }
 
   return (
-    <a key={item.title} href={item.url} className="text-md font-semibold">
+    <a key={item.title} href={item.url} className="flex items-center gap-2 text-md font-semibold">
+      {item.icon && <span className="text-foreground">{item.icon}</span>}
       {item.title}
     </a>
   );
@@ -356,13 +314,3 @@ const SubMenuLink = ({ item }) => {
 };
 
 export { Navbar1 };
-
-            {/* <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
-            </Button> */}
-            {/* <Button
-              variant="outline"
-              onClick={handleAuthClick}
-            >
-              {session ? "Logout" : "Login"}
-            </Button> */}

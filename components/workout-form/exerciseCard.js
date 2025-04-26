@@ -27,6 +27,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function ExerciseCard({
   exercise,
@@ -36,6 +47,7 @@ export default function ExerciseCard({
   updateExercise,
 }) {
   const [setsIsOpen, setSetsIsOpen] = useState(false);
+  const [showSetAlert, setShowSetAlert] = useState(false);
 
   const handleDeleteSet = (exerciseIndex, indexToRemove) => {
     const updatedExercises = [...formState.exercises];
@@ -62,6 +74,11 @@ export default function ExerciseCard({
   const addSet = (exerciseIndex) => {
     const updatedExercises = [...formState.exercises];
     const type = updatedExercises[exerciseIndex].exerciseType;
+
+    if (!type) {
+      setShowSetAlert(true);
+      return;
+    }
 
     let newSet = {};
     switch (type) {
@@ -223,6 +240,23 @@ export default function ExerciseCard({
         </div>
       )}
       <Separator className="mb-8" />
+
+      <AlertDialog open={showSetAlert} onOpenChange={setShowSetAlert}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>⚠️ Select an Exercise First</AlertDialogTitle>
+            <AlertDialogDescription>
+              You need to select an exercise before you can add sets.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => setShowSetAlert(false)}>
+              Got it
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
     </div>
   );
 }
