@@ -12,15 +12,15 @@ export default function AboutPage() {
       <Card className="mb-8 shadow-md">
         <CardContent className="py-8">
           <p className="text-lg mb-4">
-            Welcome to <span className="font-semibold">Kratos</span> — your personal companion for
+            Welcome to <span className="font-semibold">[Your App Name]</span> — your personal companion for
             reaching new fitness milestones. 
           </p>
           <p className="text-muted-foreground mb-4">
             Our mission is simple: help you track your workouts, set powerful goals, and celebrate every achievement, big or small.
           </p>
           <p className="text-muted-foreground">
-            Whether you're lifting heavy, running fast, or pushing your limits with bodyweight workouts,
-            we've built a platform to make sure every rep, every set, and every victory is recorded and recognized.
+            Whether you&apos;re lifting heavy, running fast, or pushing your limits with bodyweight workouts,
+            we&apos;ve built a platform to make sure every rep, every set, and every victory is recorded and recognized.
           </p>
         </CardContent>
       </Card>
@@ -43,7 +43,7 @@ export default function AboutPage() {
             <h2 className="text-2xl font-semibold mb-4">Why We Built This</h2>
             <p className="text-muted-foreground">
               We were tired of clunky apps that made tracking a chore. 
-              So we created a tool that's fast, flexible, and focused entirely on your progress — no distractions, no fluff.
+              So we created a tool that&apos;s fast, flexible, and focused entirely on your progress — no distractions, no fluff.
             </p>
           </CardContent>
         </Card>
@@ -55,3 +55,4 @@ export default function AboutPage() {
     </div>
   );
 }
+
