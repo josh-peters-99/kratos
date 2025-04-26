@@ -13,7 +13,7 @@ const sections = [
   {
     title: "Company",
     links: [
-      { name: "About", href: "#" },
+      { name: "About", href: "/about" },
       { name: "Team", href: "#" },
       { name: "Blog", href: "#" },
       { name: "Careers", href: "#" },
@@ -57,8 +57,7 @@ const Footer7 = ({
                 <h2 className="text-xl font-semibold">{logo.title}</h2>
               </div>
               <p className="text-sm text-muted-foreground w-full justify-center">
-                A collection of 100+ responsive HTML templates for your startup
-                business or side project.
+                A collection of 100+ exercises for you to create custom workouts and track your fitness progress.
               </p>
               <ul className="flex items-center space-x-6 text-muted-foreground">
                 <li className="font-medium hover:text-primary">
@@ -102,7 +101,7 @@ const Footer7 = ({
             </div>
           </div>
           <div className="mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-center text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left">
-            <p>© 2024 Shadcnblocks.com. All rights reserved.</p>
+            <p>© 2025 Kratos.com. All rights reserved.</p>
             <ul className="flex justify-center gap-4 lg:justify-start">
               <li className="hover:text-primary">
                 <a href="#"> Terms and Conditions</a>
