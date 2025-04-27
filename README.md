@@ -1,35 +1,81 @@
 # Kratos Workout Tracker
 
-A simple workout tracker built with Next.js that allows users to sign up, sign in, and track their lifting workouts. The goal is to help users track their progress and set personalized fitness goals.
+A full-stack web application for tracking workouts, personal bests, workout plans, and user metrics.
 
-## Features
-- **User Authentication:** Sign up and sign in functionality.
-- **Workout Tracking:** Track your lifting workouts and set goals (future features).
+Built with:
+- **Frontend:** Next.js (App Router, JavaScript)
+- **Backend:** API routes inside Next.js
+- **Database:** MongoDB Atlas
+- **Authentication:** NextAuth (Credentials provider)
 
-## Installation
-1. Clone the repository:
+## 🚀 Features
+- User authentication (Sign up / Sign in with username and password)
+- Create and track workouts
+- Save reusable exercises
+- Track personal history for each exercise
+- Dynamic workout form (supports cardio, weightlifting, bodyweight, and timed exercises)
+- Responsive and mobile-friendly design
+
+## 🧰 Technologies Used
+- Next.js (App Router)
+- MongoDB Atlas (Cloud Database)
+- NextAuth.js (Authentication)
+- TailwindCSS (Styling)
+- Jest (Testing)
+- ShadCN UI (Components)
+
+## 🗺️ API Routes
+| Method | Endpoint | Description
+| --- | --- | --- |
+| `POST` | `/api/auth/signup` | Create a new user account                |
+| `GET`  | `/api/workouts`    | Fetch all workout for the signed-in user |
+| `POST` | `/api/workouts`    | Create a new workout                     |
+
+## 🔒 Authentication
+- Passwords are securely hashed using bcrypt before being stored.
+- Sessions are managed using **NextAuth JWT tokens.**
+- Protected API routes require authentication to access user data.
+
+## 📦 Setup Instructions
+1. Clone the repository
 ```bash
-git clone kratos
+git clone https://github.com/josh-peters-99/kratos.git
 cd kratos
 ```
-2. Install dependencies:
+2. Install dependencies
 ```bash
 npm install
 ```
-3. Run the application locally:
+3. Set up environment variables
+  - Create a `.env.local` file in the root directory with the following:
+```bash
+MONGODB_URI=your_mongodb_connection_string
+NEXTAUTH_SECRET=your_nextauth_secret
+NEXTAUTH_URL=http://localhost:3000
+```
+4. Run the app locally
 ```bash
 npm run dev
 ```
-4. Open the application:
-Visit `http://localhost:3000` in your browser
+5. Visit [http://localhost:3000](http://localhost:3000) to view the app.
 
-## Project Setup
-### Environment Variables
-This project uses environment variables for connecting to MongoDB. Create a `.env.local` file in the root directory and add the following:
+## 🧪 Testing
+Run unit tests:
 ```bash
-NEXT_PUBLIC_MONGO_URI=<your-mongo-uri>
-AUTH_SECRET=<your-secret-key>
+npm run test
 ```
 
-## Live Application Deployed on Vercel
+## 📚 Future Improvements
+- Advanced workout analytics and graphs
+- Save reusable workout templates
+- Plan structured weekly workouts
+- Track total workouts (weekly, mongthly, yearly, all-time)
+- Social fetaures
+- Workout history calendar view
+- Notifications/reminders for planned workouts
+
+## ☁️ Live Application Deployed on Vercel
 [Kratos.com](https://kratos-tan.vercel.app/)
+
+## 📄 License
+This project is licensed under the MIT license.
