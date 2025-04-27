@@ -35,7 +35,7 @@ const Footer7 = ({
     url: "https://www.shadcnblocks.com",
     src: "https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg",
     alt: "logo",
-    title: "Kratos.com",
+    title: "Kratos",
   },
 }) => {
   return (
@@ -46,14 +46,14 @@ const Footer7 = ({
             <div className="flex w-full md:max-w-96 shrink flex-col items-center justify-between gap-6 lg:items-start">
               {/* Logo */}
               <div className="flex items-center gap-2 lg:justify-start">
-                <a href={logo.url}>
+                {/* <a href={logo.url}>
                   <img
                     src={logo.src}
                     alt={logo.alt}
                     title={logo.title}
                     className="h-8"
                   />
-                </a>
+                </a> */}
                 <h2 className="text-xl font-semibold">{logo.title}</h2>
               </div>
               <p className="text-sm text-muted-foreground w-full justify-center">
@@ -101,7 +101,7 @@ const Footer7 = ({
             </div>
           </div>
           <div className="mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-center text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left">
-            <p>© 2025 Kratos.com. All rights reserved.</p>
+            <p>© 2025 Kratos. All rights reserved.</p>
             <ul className="flex justify-center gap-4 lg:justify-start">
               <li className="hover:text-primary">
                 <a href="#"> Terms and Conditions</a>

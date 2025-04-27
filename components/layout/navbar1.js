@@ -3,6 +3,7 @@
 import { 
   Menu, 
   CircleUserRound,
+  History,
   LogOut,
   Moon,
   Sun,
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -44,6 +46,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Navbar1 = ({
   logo = {
@@ -68,6 +71,11 @@ const Navbar1 = ({
       icon: <Library size={14} />,
       url: "/exercise-library"
     },
+    {
+      title: "Workout History",
+      icon: <History size={14} />,
+      url: "/workout-history"
+    }
   ],
   auth = {
     login: { title: "Login", url: "#" },
@@ -78,6 +86,20 @@ const Navbar1 = ({
   const { data: session } = useSession();
   const router = useRouter();
   const { setTheme } = useTheme();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  useEffect(() => {
+    if (session?.user) {
+      setFirstName(session.user.firstName);
+      setLastName(session.user.lastName);
+    }
+  }, [session]);
+
+  const getInitials = (first, last) => {
+    if (!first && !last) return "??";
+    return `${first?.[0] || ""}${last?.[0] || ""}`.toUpperCase();
+  };
 
   const handleAuthClick = () => {
     if (session) {
@@ -94,7 +116,7 @@ const Navbar1 = ({
         <nav className="hidden justify-between lg:flex">
           <div className="flex items-center gap-6">
             <a href={logo.url} className="flex items-center gap-2">
-              <img src={logo.src} className="max-h-8" alt={logo.alt} />
+              {/* <img src={logo.src} className="max-h-8" alt={logo.alt} /> */}
               <span className="text-lg font-semibold tracking-tighter">
                 {logo.title}
               </span>
@@ -109,8 +131,33 @@ const Navbar1 = ({
           </div>
           <div className="flex gap-2">
             <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="cursor-pointer">
+                      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                      <span className="sr-only">Toggle theme</span>
+                  </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointer">
+                  Light
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer">
+                  Dark
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer">
+                  System
+                  </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu>
               <DropdownMenuTrigger className="focus:outline-none cursor-pointer">
-                <CircleUserRound />
+                {/* <CircleUserRound /> */}
+                <Avatar>
+                  {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
+                  <AvatarFallback className="text-xs">{getInitials(firstName, lastName)}</AvatarFallback>
+                </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mr-8">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -133,32 +180,11 @@ const Navbar1 = ({
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            {!session && (
+            {/* {!session && (
               <Button asChild size="sm">
                 <a href={auth.signup.url}>{auth.signup.title}</a>
               </Button>
-            )}
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="cursor-pointer">
-                      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                      <span className="sr-only">Toggle theme</span>
-                  </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointer">
-                  Light
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer">
-                  Dark
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer">
-                  System
-                  </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            )} */}
           </div>
         </nav>
 
@@ -166,7 +192,10 @@ const Navbar1 = ({
         <div className="block lg:hidden">
           <div className="flex items-center justify-between">
             <a href={logo.url} className="flex items-center gap-2">
-              <img src={logo.src} className="max-h-8" alt={logo.alt} />
+              {/* <img src={logo.src} className="max-h-8" alt={logo.alt} /> */}
+              <span className="text-lg font-semibold tracking-tighter">
+                {logo.title}
+              </span>
             </a>
             <div className="flex gap-3">
               <DropdownMenu>
@@ -189,6 +218,37 @@ const Navbar1 = ({
                     </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger className="focus:outline-none cursor-pointer">
+                  {/* <CircleUserRound /> */}
+                  <Avatar>
+                    {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
+                    <AvatarFallback className="text-xs">{getInitials(firstName, lastName)}</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="mr-8">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/profile" className="w-full">
+                      Profile
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className="p-0">
+                    <Button
+                      variant="ghost"
+                      className="px-2 py-1.5 text-sm"
+                      onClick={handleAuthClick}
+                    >
+                      <LogOut />
+                      {session ? "Logout" : "Login"}
+                    </Button>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="outline" size="icon">
@@ -199,7 +259,10 @@ const Navbar1 = ({
                   <SheetHeader>
                     <SheetTitle>
                       <a href={logo.url} className="flex items-center gap-2">
-                        <img src={logo.src} className="max-h-8" alt={logo.alt} />
+                        {/* <img src={logo.src} className="max-h-8" alt={logo.alt} /> */}
+                        <span className="text-lg font-semibold tracking-tighter">
+                          {logo.title}
+                        </span>
                       </a>
                     </SheetTitle>
                   </SheetHeader>
@@ -222,11 +285,11 @@ const Navbar1 = ({
                       >
                         {session ? "Logout" : "Login"}
                       </Button>
-                      {!session && (
+                      {/* {!session && (
                         <Button asChild>
                           <a href={auth.signup.url}>{auth.signup.title}</a>
                         </Button>
-                      )}
+                      )} */}
                     </div>
 
                   </div>

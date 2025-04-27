@@ -6,7 +6,7 @@ export async function middleware(req) {
     const token = await getToken({ req, secret: process.env.AUTH_SECRET });
 
     // Define protected routes
-    const protectedRoutes = ["/", "/workout"];
+    const protectedRoutes = ["/", "/workout", "/profile", "/exercise-library", "/workout-history"];
 
     // If the user is trying to access a protected route and doesn't have a valid token, redirect to sign-in
     if (protectedRoutes.some((route) => req.nextUrl.pathname) && !token) {
@@ -19,5 +19,5 @@ export async function middleware(req) {
 
 // Apply middleware only to specific routes
 export const config = {
-    matcher: ["/", "/workout/:path*"],
+    matcher: ["/", "/workout/:path*", "/profile/:path*", "/workout-history/:path*", "/exercise-library/:path*"],
 }

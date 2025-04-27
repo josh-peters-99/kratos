@@ -35,7 +35,7 @@ export async function POST(req) {
     }
 
     const body = await req.json();
-    const { name, exerciseType, musclesWorked = [] } = body;
+    const { name, exerciseType, musclesWorked = [], description } = body;
 
     if (!name || !exerciseType) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -47,6 +47,7 @@ export async function POST(req) {
       name,
       exerciseType,
       musclesWorked,
+      description,
       createdBy: session.user.id,
     });
 

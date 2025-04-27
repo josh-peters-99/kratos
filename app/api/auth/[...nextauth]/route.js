@@ -3,8 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/models/user";
 import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
-// import crypto from "crypto";
-// import { sendVerificationEmail } from "@/lib/email";
 
 export const authOptions = {
     secret: process.env.AUTH_SECRET,
@@ -31,7 +29,8 @@ export const authOptions = {
                         userName: user.userName, 
                         firstName: user.firstName,
                         lastName: user.lastName,
-                        email: user.email
+                        email: user.email,
+                        bio: user.bio,
                     }
                 } catch (error) {
                     console.error("Error in authorize function:", error);
@@ -41,12 +40,19 @@ export const authOptions = {
         }),
     ],
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user, trigger, session }) {
             if (user) {
                 token.id = user.id;
                 token.userName = user.userName;
                 token.firstName = user.firstName;
                 token.lastName = user.lastName;
+                token.email = user.email;
+                token.bio = user.bio;
+            }
+
+            // Handle updating token when session is updated
+            if (trigger === "update" && session) {
+                token.bio = session.bio;
             }
             return token;
         },
@@ -56,6 +62,8 @@ export const authOptions = {
                 session.user.userName = token.userName;
                 session.user.firstName = token.firstName;
                 session.user.lastName = token.lastName;
+                session.user.email = token.email;
+                session.user.bio = token.bio;
             }
             return session;
         }

@@ -41,6 +41,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { createExercise } from "@/lib/api/exercises";
 import { toast } from "sonner";
+import { Textarea } from "@/components/ui/textarea"
+
 import {
   Pagination,
   PaginationContent,
@@ -154,6 +156,7 @@ const List2 = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [searchFilterIsOpen, setSearchFilterIsOpen] = useState(false);
+  const [description, setDescription] = useState("");
   const commandRef = useRef(null);
 
   // Filter items based on the search input
@@ -217,6 +220,7 @@ const List2 = ({
       name: exerciseName,
       exerciseType: selectedType,
       muscleWorked: selectedMuscleGroups,
+      description: description,
     };
     const saveExercise = await createExercise(newExercise);
     toast(`${saveExercise.name} saved successfully!`);
@@ -294,6 +298,15 @@ const List2 = ({
                       </ScrollArea>
                     </PopoverContent>
                   </Popover>
+                </div>
+
+                <div>
+                  <Label className="mb-1">Description</Label>
+                  <Textarea 
+                    placeholder="Type your exercise description."
+                    onChange={(e) => setDescription(e.target.value)}
+                    value={description}
+                  />
                 </div>
 
               </AlertDialogHeader>

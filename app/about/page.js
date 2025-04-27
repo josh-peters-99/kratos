@@ -6,13 +6,13 @@ import { Separator } from "@/components/ui/separator";
 
 export default function AboutPage() {
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12">
+    <div className="max-w-4xl mx-auto min-h-screen px-6 pt-12">
       <h1 className="text-4xl font-bold mb-6 text-center">About Us</h1>
 
       <Card className="mb-8 shadow-md">
         <CardContent className="py-8">
           <p className="text-lg mb-4">
-            Welcome to <span className="font-semibold">[Your App Name]</span> — your personal companion for
+            Welcome to <span className="font-semibold">Kratos</span> — your personal companion for
             reaching new fitness milestones. 
           </p>
           <p className="text-muted-foreground mb-4">

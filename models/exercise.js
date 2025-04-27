@@ -11,6 +11,7 @@ const ExerciseSchema = new mongoose.Schema({
     type: [String],
     default: []
   },
+  description: { type: String },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
