@@ -72,5 +72,6 @@
 
 ## Week 18:
 - **2025-04-27**: 2 hours 30 minutes — Final review and cleanup of codebase; prepared for final project presentation and demo video recording.
+- **2025-04-28**: 3 hours - Updated README and fixed workout API test.
 
-## TOTAL HOURS: 98
+## TOTAL HOURS: 101

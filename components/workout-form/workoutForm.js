@@ -142,9 +142,10 @@ export default function WorkoutForm() {
         </Button>
       </div>
       <div className="mt-8">
-        <Label>Workout Notes</Label>
+        <Label htmlFor="notes">Workout Notes</Label>
         <Textarea 
           className="mt-1" 
+          id="notes"
           value={formState.notes} 
           onChange={(e) => updateField("notes", e.target.value)} 
         />

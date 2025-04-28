@@ -1,119 +1,91 @@
-/**
- * @jest-environment jsdom
- */
-import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import WorkoutForm from "@/components/form/workoutForm";
-import { useRouter } from "next/navigation";
+import '@testing-library/jest-dom';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import WorkoutForm from '@/components/workout-form/workoutForm';
+import { useRouter } from 'next/navigation';
+import { createWorkout } from '@/lib/api/workout';
 
-// Mock child components
-jest.mock("@/components/form/workoutTitleInput", () => (props) => (
-  <input
-    data-testid="title-input"
-    value={props.title}
-    onChange={(e) => props.setTitle(e.target.value)}
-  />
-));
-jest.mock("@/components/form/datePicker", () => ({
-  DatePicker: ({ date, setDate }) => (
-    <input
-      data-testid="date-picker"
-      value={date || ""}
-      onChange={(e) => setDate(e.target.value)}
-    />
-  ),
-}));
-jest.mock("@/components/form/timePicker", () => ({
-  TimePicker: ({ time, setTime }) => (
-    <input
-      data-testid="time-picker"
-      value={time || ""}
-      onChange={(e) => setTime(e.target.value)}
-    />
-  ),
-}));
-jest.mock("@/components/form/exerciseCard", () => () => (
-  <div data-testid="exercise-card">ExerciseCard</div>
-));
+// Mock fetch and createWorkout
+global.fetch = jest.fn();
 
-// Mock API and router
-jest.mock("next/navigation", () => ({
+// Mock useRouter
+jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }));
-jest.mock("@/lib/api/workout", () => ({
-  createWorkout: jest.fn(() => Promise.resolve({ id: "mockWorkoutId" })),
+
+// Mock createWorkout
+jest.mock('../lib/api/workout.js', () => ({
+  createWorkout: jest.fn(),
 }));
 
-describe("WorkoutForm", () => {
-  const pushMock = jest.fn();
+describe('WorkoutForm', () => {
+  const push = jest.fn();
 
   beforeEach(() => {
-    useRouter.mockReturnValue({ push: pushMock });
+    jest.clearAllMocks();
+    useRouter.mockReturnValue({ push });
     localStorage.clear();
-    pushMock.mockClear();
   });
 
-  it("renders without crashing after hydration", async () => {
+  it('renders the workout form fields', async () => {
     render(<WorkoutForm />);
+
+    expect(await screen.findByRole('heading', { name: /create a new workout/i })).toBeInTheDocument();
+    expect(screen.getByLabelText(/workout title/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/workout notes/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /exercise/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /discard workout/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /save workout/i })).toBeInTheDocument();
+  });
+
+  it('updates workout title and notes', async () => {
+    render(<WorkoutForm />);
+
+    const titleInput = screen.getByLabelText(/workout title/i);
+    const notesInput = screen.getByLabelText(/workout notes/i);
+
+    await userEvent.type(titleInput, 'Leg Day');
+    await userEvent.type(notesInput, 'Heavy squats and lunges');
+
+    expect(titleInput).toHaveValue('Leg Day');
+    expect(notesInput).toHaveValue('Heavy squats and lunges');
+  });
+
+  it('adds a new exercise when clicking "Exercise" button', async () => {
+    render(<WorkoutForm />);
+
+    await userEvent.click(screen.getByRole('button', { name: /exercise/i }));
+
+    expect(await screen.findAllByText(/exercise name/i)).toHaveLength(1);
+  });
+
+  it('saves workout and redirects on success', async () => {
+    createWorkout.mockResolvedValueOnce({ id: 'workout123' });
+
+    render(<WorkoutForm />);
+
+    const titleInput = screen.getByLabelText(/workout title/i);
+    const notesInput = screen.getByLabelText(/workout notes/i);
+
+    await userEvent.type(titleInput, 'Push Day');
+    await userEvent.type(notesInput, 'Chest, shoulders, triceps');
+
+    await userEvent.click(screen.getByRole('button', { name: /save workout/i }));
+
     await waitFor(() => {
-      expect(screen.getByText("Create a New Workout")).toBeInTheDocument();
+      expect(createWorkout).toHaveBeenCalled();
+      expect(push).toHaveBeenCalledWith('/');
     });
   });
 
-  it("loads and saves to localStorage", async () => {
+  it('discards workout and redirects', async () => {
     render(<WorkoutForm />);
 
-    const titleInput = screen.getByTestId("title-input");
-    fireEvent.change(titleInput, { target: { value: "Test Workout" } });
+    await userEvent.click(screen.getByRole('button', { name: /discard workout/i }));
 
     await waitFor(() => {
-      const saved = JSON.parse(localStorage.getItem("workoutForm"));
-      expect(saved.title).toBe("Test Workout");
-    });
-  });
-
-  it("adds an exercise", async () => {
-    render(<WorkoutForm />);
-
-    const addButton = screen.getByText(/Exercise/i);
-    fireEvent.click(addButton);
-
-    await waitFor(() => {
-      expect(screen.getByTestId("exercise-card")).toBeInTheDocument();
-    });
-  });
-
-  it("saves workout to the database and clears localStorage", async () => {
-    const workoutData = {
-      title: "Workout A",
-      date: "2024-01-01",
-      time: "10:00",
-      notes: "Leg day",
-      exercises: [],
-    };
-    localStorage.setItem("workoutForm", JSON.stringify(workoutData));
-
-    render(<WorkoutForm />);
-
-    const saveButton = screen.getByText(/Save Workout/i);
-    fireEvent.click(saveButton);
-
-    await waitFor(() => {
-      expect(localStorage.getItem("workoutForm")).toBeNull();
-      expect(pushMock).toHaveBeenCalledWith("/");
-    });
-  });
-
-  it("discards the workout and navigates home", async () => {
-    localStorage.setItem("workoutForm", JSON.stringify({ title: "Temp" }));
-
-    render(<WorkoutForm />);
-    const discardButton = screen.getByText(/Discard Workout/i);
-    fireEvent.click(discardButton);
-
-    await waitFor(() => {
-      expect(localStorage.getItem("workoutForm")).toBeNull();
-      expect(pushMock).toHaveBeenCalledWith("/");
+      expect(push).toHaveBeenCalledWith('/');
     });
   });
 });
+
