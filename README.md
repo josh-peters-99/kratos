@@ -30,6 +30,12 @@ Built with:
 | `POST` | `/api/auth/signup` | Create a new user account                |
 | `GET`  | `/api/workouts`    | Fetch all workout for the signed-in user |
 | `POST` | `/api/workouts`    | Create a new workout                     |
+| `GET`  | `/api/exercises`   | Fetch an exercise                        |
+| `POST` | `/api/exercises`   | Create a new exercise                    |
+| `GET`  | `/api/exercises/search-names` | Searches exercises during search |
+| `PUT`  | `/api/user/[id]`   | Edit the user profile data               |
+| `GET`  | `/api/userMetrics` | Fetch a user's metrics                   |
+
 
 ## 🔒 Authentication
 - Passwords are securely hashed using bcrypt before being stored.
