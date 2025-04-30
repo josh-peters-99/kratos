@@ -17,6 +17,7 @@
 
 ## Week 4:
 - **2025-01-21**: 3 hours - Decided to use MongoDB for the database. Worked on setting up the schemas for my project.
+- **2025-1-23**: 3 hours - Continued to edit schemas and create API routes.
 
 ## Week 5:
 - **2025-01-27**: 2 hours 30 minutes - Worked on setting up CodePipeline for automatic deployment to beta and production environments.
@@ -25,10 +26,12 @@
 ## Week 6:
 - **2025-02-03**: 3 hours - Implemented basic authentication with NextAuth, setting up credentials provider using username and password.
 - **2025-02-05**: 2 hours 30 minutes - Built sign up and login forms using ShadCN UI components.
+- **2025-02-07**: 3 hours - Debugged sign up and login forms. Worked on routing in between pages.
 
 ## Week 7:
 - **2025-02-10**: 3 hours — Created the initial MongoDB Atlas database setup for users and workouts.
 - **2025-02-11**: 2 hours 30 minutes — Built the API routes for creating users and workouts, and connected them to frontend forms.
+- **2025-02-12**: 4 hours - Finisehd the API routes for workouts and added dynamic functionality to form.
 
 ## Week 8:
 - **2025-02-17**: 2 hours 45 minutes — Added validation and error handling for signup and login flows.
@@ -37,6 +40,7 @@
 ## Week 9:
 - **2025-02-24**: 3 hours — Created ExerciseNameInput component to suggest exercise names and types dynamically.
 - **2025-02-25**: 2 hours 30 minutes — Improved exercise form by connecting it to backend APIs.
+- **2025-02-27**: 4 hours - Made edits to dynamic workout form.
 
 ## Week 10:
 - **2025-03-03**: 3 hours — Built localStorage saving for partially completed workout forms.
@@ -45,6 +49,7 @@
 ## Week 11:
 - **2025-03-10**: 3 hours — Implemented dynamic set types (warm-up, working, drop sets, reverse drop sets) based on previous set logic.
 - **2025-03-11**: 2 hours 45 minutes — Fixed set type labeling and formatting for multiple drop sets (e.g., 3a, 3b, 3c).
+- **2025-03-13**: 4 hours - Removed set type from program. Too complex. Started work on exercise type instead.
 
 ## Week 12:
 - **2025-03-17**: 3 hours — Added support for different exercise types: cardio, weight, bodyweight, timed.
@@ -53,6 +58,7 @@
 ## Week 13:
 - **2025-03-24**: 3 hours — Created functionality to track workouts completed this week, this month, this year, and all-time.
 - **2025-03-25**: 2 hours 30 minutes — Added UI dashboard to display workout statistics for the user.
+- **2025-03-26**: 3 hours - Finsiehd the UI chart for tracking exercise progress.
 
 ## Week 14:
 - **2025-03-31**: 3 hours — Set up API routes for saving workout templates and structured weekly workout plans.
@@ -74,4 +80,4 @@
 - **2025-04-27**: 2 hours 30 minutes — Final review and cleanup of codebase; prepared for final project presentation and demo video recording.
 - **2025-04-28**: 3 hours - Updated README and fixed workout API test.
 
-## TOTAL HOURS: 101
+## TOTAL HOURS: 122
